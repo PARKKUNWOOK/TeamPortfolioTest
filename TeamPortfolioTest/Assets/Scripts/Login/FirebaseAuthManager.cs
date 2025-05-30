@@ -156,6 +156,35 @@ public class FirebaseAuthManager
         }
     }
 
+    public async void LoadNickname(Action<string> onNicknameLoaded)
+    {
+        if (!firebaseInitialized || string.IsNullOrEmpty(UserId))
+        {
+            Debug.LogError("닉네임 로드 실패: 초기화되지 않았거나 UserId 없음");
+            onNicknameLoaded?.Invoke("Unknown");
+            return;
+        }
+
+        try
+        {
+            DataSnapshot snapshot = await _dbRef.Child("Users").Child(UserId).Child("Nickname").GetValueAsync();
+            if (snapshot.Exists)
+            {
+                string nickname = snapshot.Value.ToString();
+                onNicknameLoaded?.Invoke(nickname);
+            }
+            else
+            {
+                onNicknameLoaded?.Invoke("Unknown");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("닉네임 로드 중 오류: " + ex.Message);
+            onNicknameLoaded?.Invoke("Unknown");
+        }
+    }
+
     public void Create(string email, string password, string nickname, Action onSuccess = null)
     {
         if (!firebaseInitialized)
@@ -183,6 +212,7 @@ public class FirebaseAuthManager
                 string safeEmailKey = email.Replace(".", "_").Replace("@", "_at_");
                 await _dbRef.Child("Emails").Child(safeEmailKey).SetValueAsync(newUser.UserId);
                 await _dbRef.Child("Nicknames").Child(nickname).SetValueAsync(newUser.UserId);
+                await _dbRef.Child("Users").Child(newUser.UserId).Child("Nickname").SetValueAsync(nickname);
             }
             catch (Exception ex)
             {
