@@ -140,6 +140,9 @@ public class FusionNetwork : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+        if (SceneManager.GetActiveScene().name != "InGameScene")
+            return;
+
         if (runner.IsServer || runner.IsSharedModeMasterClient)
         {
             // 로비 위치에 스폰
