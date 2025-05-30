@@ -41,7 +41,10 @@ public class MatchManager : MonoBehaviour, INetworkRunnerCallbacks
         if (_runner == null) return;
 
         int playerCount = _runner.ActivePlayers.Count();
-        playerCountText.text = $"{playerCount}/3";
+        if (playerCountText != null)
+        {
+            playerCountText.text = $"{playerCount}/3";
+        }
 
         if (playerCount >= 3)
         {
