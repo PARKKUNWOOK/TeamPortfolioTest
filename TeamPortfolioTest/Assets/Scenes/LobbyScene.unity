@@ -252,7 +252,6 @@ GameObject:
   - component: {fileID: 714270438}
   - component: {fileID: 714270437}
   - component: {fileID: 714270436}
-  - component: {fileID: 714270440}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -345,18 +344,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &714270440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714270435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a50cd208c0fb7a4e84699d4c8a9b7fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &831070649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,19 +1084,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1525982360}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 714270440}
-        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
-        m_MethodName: OnClickXButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1525982360
 MonoBehaviour:
   m_ObjectHideFlags: 0

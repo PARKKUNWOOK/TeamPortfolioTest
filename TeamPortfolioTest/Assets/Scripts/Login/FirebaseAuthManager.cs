@@ -23,8 +23,8 @@ public class FirebaseAuthManager
     private FirebaseUser _user;
     private DatabaseReference _dbRef;
 
-    private bool firebaseInitialized = false;
-    private bool isCreatingAccount = false;
+    private bool _firebaseInitialized = false;
+    private bool _isCreatingAccount = false;
 
     public string UserId => _user?.UserId;
     public Action<bool> LoginState;
@@ -41,7 +41,7 @@ public class FirebaseAuthManager
             _dbRef = FirebaseDatabase.GetInstance(app).RootReference;
 
             _auth = FirebaseAuth.DefaultInstance;
-            firebaseInitialized = true;
+            _firebaseInitialized = true;
 
             string autoLogin = PlayerPrefs.GetString("AutoLogin", "false");
             if (autoLogin == "true")
@@ -81,7 +81,7 @@ public class FirebaseAuthManager
 
             if (signedIn)
             {
-                if (isCreatingAccount)
+                if (_isCreatingAccount)
                 {
                     // 회원가입 직후 자동 로그인은 무시
                     Debug.Log("회원가입 중 자동 로그인 무시");
@@ -101,7 +101,7 @@ public class FirebaseAuthManager
 
     public async void CheckEmailDuplicate(string email, Action<bool> onCheckComplete)
     {
-        if (!firebaseInitialized)
+        if (!_firebaseInitialized)
         {
             Debug.LogError("Firebase가 초기화되지 않았습니다.");
             onCheckComplete?.Invoke(true); // 중복 처리
@@ -130,7 +130,7 @@ public class FirebaseAuthManager
 
     public async void CheckNicknameDuplicate(string nickname, Action<bool> onCheckComplete)
     {
-        if (!firebaseInitialized)
+        if (!_firebaseInitialized)
         {
             Debug.LogError("Firebase가 초기화되지 않았습니다.");
             onCheckComplete?.Invoke(true); // 중복으로 처리
@@ -158,7 +158,7 @@ public class FirebaseAuthManager
 
     public async void LoadNickname(Action<string> onNicknameLoaded)
     {
-        if (!firebaseInitialized || string.IsNullOrEmpty(UserId))
+        if (!_firebaseInitialized || string.IsNullOrEmpty(UserId))
         {
             Debug.LogError("닉네임 로드 실패: 초기화되지 않았거나 UserId 없음");
             onNicknameLoaded?.Invoke("Unknown");
@@ -187,20 +187,20 @@ public class FirebaseAuthManager
 
     public void Create(string email, string password, string nickname, Action onSuccess = null)
     {
-        if (!firebaseInitialized)
+        if (!_firebaseInitialized)
         {
             Debug.LogError("Firebase가 초기화되지 않았습니다.");
             return;
         }
 
-        isCreatingAccount = true;
+        _isCreatingAccount = true;
 
         _auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(async task =>
         {
             if (task.IsCanceled || task.IsFaulted)
             {
                 Debug.LogError("회원가입 실패");
-                isCreatingAccount = false;
+                _isCreatingAccount = false;
                 return;
             }
 
@@ -221,14 +221,14 @@ public class FirebaseAuthManager
 
             LogOut(); // 로그아웃 처리
 
-            isCreatingAccount = false;
+            _isCreatingAccount = false;
             onSuccess?.Invoke();
         });
     }
 
     public void LogIn(string email, string password)
     {
-        if (!firebaseInitialized)
+        if (!_firebaseInitialized)
         {
             Debug.LogError("Firebase가 초기화되지 않았습니다.");
             return;
