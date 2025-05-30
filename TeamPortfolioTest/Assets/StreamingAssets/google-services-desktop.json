@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "799111309306",
+    "firebase_url": "https://teamportfoliotest-default-rtdb.firebaseio.com",
+    "project_id": "teamportfoliotest",
+    "storage_bucket": "teamportfoliotest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799111309306:android:6bdd340f43d9e28e71e643",
+        "android_client_info": {
+          "package_name": "com.TeamPortfolioTest.test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlx8QkCpxgUCAevTi3OrqJa827vuhiKDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
