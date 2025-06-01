@@ -10,8 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class MatchManager : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public TextMeshProUGUI playerCountText;
-    public float waitTime = 10f;
+    private TextMeshProUGUI playerCountText;
+    private float waitTime = 10f;
 
     private NetworkRunner _runner;
     private float _timer;
@@ -19,6 +19,7 @@ public class MatchManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Start()
     {
+        playerCountText = GameObject.Find("PlayerCountText")?.GetComponent<TextMeshProUGUI>();
         StartCoroutine(InitializeNetwork());
     }
 
